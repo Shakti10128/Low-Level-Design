@@ -1,6 +1,7 @@
 package apis;
 
 import DTO.CreateTransactionDTO;
+import DTO.UpdateATMStateDTO;
 
 public class NodeBackendApi implements BackendAPI{
     // should be only responsible to connect the backend and return the response
@@ -17,5 +18,11 @@ public class NodeBackendApi implements BackendAPI{
         // 3: return the response
         int txnId = (int)(Math.random() * 10000);
         return txnId;
+    }
+
+    @Override
+    public boolean updateState(UpdateATMStateDTO updateATMStateDTO) {
+        // assume that there is implementation that call the backend to update the state of the ATM
+        return true; // mimic the response
     }
 }

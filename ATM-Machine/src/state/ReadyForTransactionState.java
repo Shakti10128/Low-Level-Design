@@ -6,11 +6,11 @@ import apis.BackendAPI;
 import models.ATM;
 import models.Card;
 
-public class ReadyForTransaction implements State{
+public class ReadyForTransactionState implements State{
     private final ATM atm;
     private final BackendAPI backendAPI;
 
-    ReadyForTransaction(ATM atm, BackendAPI backendAPI) {
+    public ReadyForTransactionState(ATM atm, BackendAPI backendAPI) {
         this.atm = atm;
         this.backendAPI = backendAPI;
     }
@@ -24,6 +24,9 @@ public class ReadyForTransaction implements State{
         if(transactionId == 0){
             throw new RuntimeException("Transaction could not be created");
         }
+
+        // now that we have transactionId from the backend, we should move the atm to the next state
+        this.atm.changeState(new ReadCardDetailsAndPinState());
         return transactionId;
     }
 
@@ -49,6 +52,6 @@ public class ReadyForTransaction implements State{
 
     @Override
     public ATMState getATMState() {
-        return null;
+        return ATMState.READY_FOR_TRANSACTION;
     }
 }
