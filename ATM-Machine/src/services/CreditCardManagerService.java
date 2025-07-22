@@ -2,7 +2,7 @@ package services;
 
 import models.Card;
 
-public class DebitCardManagerService implements CardManagerService{
+public class CreditCardManagerService implements CardManagerService{
     @Override
     public boolean validateCard(Card card, String pin) {
         // we should make these also connect to api

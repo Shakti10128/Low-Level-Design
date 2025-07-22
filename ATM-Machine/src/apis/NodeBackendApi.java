@@ -1,6 +1,7 @@
 package apis;
 
 import DTO.CreateTransactionDTO;
+import DTO.GetATMAmountReqDTO;
 import DTO.UpdateATMStateDTO;
 
 public class NodeBackendApi implements BackendAPI{
@@ -24,5 +25,10 @@ public class NodeBackendApi implements BackendAPI{
     public boolean updateState(UpdateATMStateDTO updateATMStateDTO) {
         // assume that there is implementation that call the backend to update the state of the ATM
         return true; // mimic the response
+    }
+
+    @Override
+    public int getATMAmount(GetATMAmountReqDTO getATMAmountReqDTO) {
+        return 1000;
     }
 }

@@ -3,6 +3,7 @@ package state;
 import DTO.CreateTransactionDTO;
 import Enums.ATMState;
 import apis.BackendAPI;
+import apis.NodeBackendApi;
 import models.ATM;
 import models.Card;
 
@@ -10,9 +11,9 @@ public class ReadyForTransactionState implements State{
     private final ATM atm;
     private final BackendAPI backendAPI;
 
-    public ReadyForTransactionState(ATM atm, BackendAPI backendAPI) {
+    public ReadyForTransactionState(ATM atm) {
         this.atm = atm;
-        this.backendAPI = backendAPI;
+        this.backendAPI = new NodeBackendApi();
     }
 
     @Override
@@ -26,17 +27,17 @@ public class ReadyForTransactionState implements State{
         }
 
         // now that we have transactionId from the backend, we should move the atm to the next state
-        this.atm.changeState(new ReadCardDetailsAndPinState());
+        this.atm.changeState(new ReadCardDetailsAndPinState(this.atm));
         return transactionId;
     }
 
     @Override
-    public boolean readCardDetailsAndPin(Card card) {
+    public boolean readCardDetailsAndPin(Card card,String pin) {
         throw new IllegalStateException("Cannot read card details and pin without inserting card");
     }
 
     @Override
-    public int dispenseCash() {
+    public int dispenseCash(Card card,int amount,int transactionId) {
         throw new IllegalStateException("Cannot dispense cash without reading card details and pin");
     }
 
@@ -46,7 +47,12 @@ public class ReadyForTransactionState implements State{
     }
 
     @Override
-    public boolean readCashWithdrawDetails(int transactionId, int amount) {
+    public boolean cancelTransaction(int transactionId){
+        throw new IllegalStateException("Cannot cancel transaction without reading card details and pin");
+    }
+
+    @Override
+    public boolean readCashWithdrawDetails(Card card,int transactionId, int amount) {
         throw new IllegalStateException("Cannot read cash withdraw details without reading card details and pin");
     }
 
