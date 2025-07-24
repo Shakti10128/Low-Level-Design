@@ -29,6 +29,6 @@ public class NodeBackendApi implements BackendAPI{
 
     @Override
     public int getATMAmount(GetATMAmountReqDTO getATMAmountReqDTO) {
-        return 1000;
+        return 100000; // ATM has 1lac amount currently
     }
 }

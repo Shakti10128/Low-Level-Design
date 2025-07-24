@@ -1,6 +1,9 @@
 package state;
 
+import DTO.GetATMAmountReqDTO;
 import Enums.ATMState;
+import apis.BackendAPI;
+import apis.NodeBackendApi;
 import factories.CardManagerFactory;
 import models.ATM;
 import models.Card;
@@ -8,9 +11,11 @@ import services.CardManagerService;
 
 public class ReadingCashWithdrawlDetailsState implements State {
     private final ATM atm;
+    private final BackendAPI backendAPI;
 
     public ReadingCashWithdrawlDetailsState(ATM atm) {
         this.atm = atm;
+        this.backendAPI = new NodeBackendApi();
     }
 
     @Override
@@ -47,6 +52,11 @@ public class ReadingCashWithdrawlDetailsState implements State {
     public boolean readCashWithdrawDetails(Card card,int transactionId, int amount) {
         CardManagerService manager = CardManagerFactory.getCardManagerService(card.getCardType());
         boolean isWithdrawValid = manager.validateWithdrawal(transactionId, amount);
+        int ATMAmount = backendAPI.getATMAmount(new GetATMAmountReqDTO(atm.getAtmId()));
+        if(amount > ATMAmount) {
+            System.out.println("Insufficient amount in the ATM");
+            isWithdrawValid = false;
+        }
         if(isWithdrawValid) {
             this.atm.changeState(new DispensingCashState(this.atm));
         }

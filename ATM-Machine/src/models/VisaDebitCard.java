@@ -4,7 +4,7 @@ import Enums.CardType;
 
 public class VisaDebitCard extends Card implements Visa,Debit{
 
-    public VisaDebitCard(long cardNumber, int pin, String name, CardType cardType, String bankName) {
+    public VisaDebitCard(long cardNumber, String pin, String name, CardType cardType, String bankName) {
         super(cardNumber, pin, name, cardType, bankName);
     }
 

@@ -5,8 +5,7 @@ import models.Card;
 public class DebitCardManagerService implements CardManagerService{
     @Override
     public boolean validateCard(Card card, String pin) {
-        // we should make these also connect to api
-        return true;
+        return card.getPin().equals(pin);
     }
 
     @Override

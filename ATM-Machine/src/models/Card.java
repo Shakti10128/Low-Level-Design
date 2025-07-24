@@ -5,7 +5,7 @@ import Enums.CardType;
 public class Card {
     private final long cardNumber;
 
-    private final int pin;
+    private final String pin;
 
     private final String name;
 
@@ -13,7 +13,7 @@ public class Card {
 
     private final String bankName;
 
-    public Card(long cardNumber, int pin, String name, CardType cardType, String bankName) {
+    public Card(long cardNumber, String pin, String name, CardType cardType, String bankName) {
         this.cardNumber = cardNumber;
         this.pin = pin;
         this.name = name;
@@ -25,7 +25,7 @@ public class Card {
         return cardNumber;
     }
 
-    public int getPin() {
+    public String getPin() {
         return pin;
     }
 

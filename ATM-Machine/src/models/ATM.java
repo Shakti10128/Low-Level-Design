@@ -10,8 +10,9 @@ public class ATM {
     private final String atmId;
     private State state;
     private final BackendAPI backendAPI;
+    private int currentWithdrawAmount;
 
-    ATM(String atmId) {
+    public ATM(String atmId) {
         this.atmId = atmId;
         this.backendAPI = new NodeBackendApi();
         this.state = new ReadyForTransactionState(this);
@@ -19,6 +20,18 @@ public class ATM {
     public String getAtmId() {
         return atmId;
     }
+    public State getState() {
+        return state;
+    }
+
+    public void setCurrentWithdrawAmount(int amount) {
+        this.currentWithdrawAmount = amount;
+    }
+
+    public int getCurrentWithdrawAmount() {
+        return this.currentWithdrawAmount;
+    }
+
 
     public void changeState(State newState) {
         this.state = newState;
